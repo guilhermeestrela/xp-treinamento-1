@@ -13,7 +13,7 @@ public class CapturadorDeTeclas {
         JButton button = new JButton();
         frame.add(button);
         frame.setVisible(true);
-        button.addKeyListener(new KeyAdapter(){
+        button.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyPressed(KeyEvent e) {
