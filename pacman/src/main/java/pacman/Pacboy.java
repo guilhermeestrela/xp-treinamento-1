@@ -43,28 +43,34 @@ public class Pacboy implements Jogo {
 
     public void direita() {
         deletePacboy();
-        pacboyX = Math.abs((pacboyX + 1) % this.size);
+        pacboyX = (pacboyX + 1) % this.size;
 
         this.state[pacboyY][pacboyX] = 'C';
     }
 
     public void esquerda() {
         deletePacboy();
-        pacboyX = Math.abs((pacboyX - 1) % this.size);
+        pacboyX = (pacboyX - 1) % this.size;
+        if (pacboyX < 0) {
+            pacboyX = 4;
+        }
 
         this.state[pacboyY][pacboyX] = 'C';
     }
 
     public void sobe() {
         deletePacboy();
-        pacboyY = Math.abs((pacboyY - 1) % this.size);
+        pacboyY = (pacboyY - 1) % this.size;
+        if (pacboyY < 0) {
+            pacboyY = 4;
+        }
 
         this.state[pacboyY][pacboyX] = 'C';
     }
 
     public void desce() {
         deletePacboy();
-        pacboyY = Math.abs((pacboyY + 1) % this.size);
+        pacboyY = (pacboyY + 1) % this.size;
 
         this.state[pacboyY][pacboyX] = 'C';
     }
