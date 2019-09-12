@@ -46,6 +46,10 @@ public class Pacboy implements Jogo {
     }
 
     public String tela() {
+        if (checkGameOver()) {
+            return "GAME OVER";
+        }
+
         StringBuilder sb = new StringBuilder();
         for (int y = 0; y < this.size; y++) {
             for (int x = 0; x < this.size; x++) {
@@ -132,6 +136,19 @@ public class Pacboy implements Jogo {
         } else {
             this.desceGhost();
         }
+    }
+
+    private boolean checkGameOver() {
+        boolean gameOver = true;
+        for (int y = 0; y < this.size; y++) {
+            for (int x = 0; x < this.size; x++) {
+                if (this.state[y][x] == CHAR_FRUIT) {
+                    gameOver = false;
+                }
+            }
+        }
+
+        return gameOver;
     }
 
 
