@@ -89,7 +89,6 @@ public class SimpleTest {
     }
 
     @Test
-    @Ignore
     public void testFanasmaAparece() {
         Jogo jogo = new Pacboy();
         jogo.tela();
@@ -102,7 +101,6 @@ public class SimpleTest {
     }
 
     @Test
-    @Ignore
     public void testFanasmaAndaParaBaixo() {
         Jogo jogo = new Pacboy();
         jogo.tela();
@@ -116,7 +114,6 @@ public class SimpleTest {
     }
 
     @Test
-    @Ignore
     public void testePacboyNaoAtravessaParede(){
         Jogo jogo = new Pacboy();
         jogo.esquerda();
@@ -164,7 +161,6 @@ public class SimpleTest {
     }
 
     @Test
-    @Ignore
     public void testeFantasmaAtravessaParede(){
         Jogo jogo = new Pacboy();
         jogo.tick();
