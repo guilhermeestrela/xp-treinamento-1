@@ -19,7 +19,7 @@ public class Main {
 
         while (true) {
             render();
-            Thread.sleep(3000);
+            Thread.sleep(1500);
         }
     }
 
