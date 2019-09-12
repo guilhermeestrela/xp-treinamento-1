@@ -115,4 +115,17 @@ public class SimpleTest {
                 "*****" + "\n", jogo.tela());
     }
 
+    @Test
+    @Ignore
+    public void testePacboyNaoAtravessaParede(){
+        Jogo jogo = new Pacboy();
+        jogo.esquerda();
+        assertEquals("*****" + "\n" +
+                "***|*" + "\n" +
+                "*|C**" + "\n" +
+                "**|**" + "\n" +
+                "*****" + "\n", jogo.tela());
+
+    }
+
 }
