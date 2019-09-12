@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SimpleTest {
 
     @Test
-    @Ignore
     void telaInicial(){
         Jogo jogo = new Pacboy();
 
