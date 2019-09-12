@@ -1,16 +1,17 @@
 import jdk.nashorn.internal.ir.annotations.Ignore;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 import pacman.Jogo;
 import pacman.Pacboy;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
+
 
 public class SimpleTest {
 
     @Test
-    void telaInicial(){
+    public void telaInicial(){
         Jogo jogo = new Pacboy();
-
         assertEquals("     " + "\n" +
                 "     " + "\n" +
                 "     " + "\n" +
@@ -21,7 +22,7 @@ public class SimpleTest {
 
     @Test
     @Ignore
-    void testPacboyNaTela() {
+    public void testPacboyNaTela() {
         Jogo jogo = new Pacboy();
         assertEquals("     " + "\n" +
                 "     " + "\n" +
@@ -32,7 +33,7 @@ public class SimpleTest {
 
     @Test
     @Ignore
-    void testPacboyDireita() {
+    public void testPacboyDireita() {
         Jogo jogo = new Pacboy();
         assertEquals("     " + "\n" +
                 "     " + "\n" +
@@ -43,7 +44,7 @@ public class SimpleTest {
 
     @Test
     @Ignore
-    void testPacboyEsquerda() {
+    public void testPacboyEsquerda() {
         Jogo jogo = new Pacboy();
         assertEquals("     " + "\n" +
                 "     " + "\n" +
@@ -54,7 +55,7 @@ public class SimpleTest {
 
     @Test
     @Ignore
-    void testPacboyBaixo() {
+    public void testPacboyBaixo() {
         Jogo jogo = new Pacboy();
         assertEquals("     " + "\n" +
                 "     " + "\n" +
@@ -65,7 +66,7 @@ public class SimpleTest {
 
     @Test
     @Ignore
-    void testPacboyCima() {
+    public void testPacboyCima() {
         Jogo jogo = new Pacboy();
         assertEquals("     " + "\n" +
                 "  C  " + "\n" +
