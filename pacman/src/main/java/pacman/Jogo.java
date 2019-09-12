@@ -1,4 +1,4 @@
-package spikes;
+package pacman;
 
 public interface Jogo {
 

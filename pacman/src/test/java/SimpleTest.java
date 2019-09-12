@@ -1,8 +1,8 @@
 
 
 import org.junit.jupiter.api.Test;
-import spikes.Jogo;
-import spikes.Pacboy;
+import pacman.Jogo;
+import pacman.Pacboy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,4 +1,4 @@
-package spikes;
+package pacman;
 
 public class Pacboy implements Jogo {
 
@@ -8,6 +8,8 @@ public class Pacboy implements Jogo {
     public String tela() {
 
         this.state = new char[20][20];
+
+        return null;
 
     }
 
