@@ -1,12 +1,19 @@
 package pacman;
 
+
 public class Pacboy implements Jogo {
 
-    char [][] state;
-    int size;
+    private char [][] state;
+    private int size;
 
+    int pacboyX;
+    int pacboyY;
+    char pacboyDirection = 'L'; // L = left; R = right; U = up; D = down
 
     public Pacboy() {
+        this.pacboyX = 2;
+        this.pacboyY = 2;
+
         this.size = 5;
         this.state = new char[size][size];
         for (int i = 0; i < this.size; i++) {
@@ -14,6 +21,8 @@ public class Pacboy implements Jogo {
                 this.state[i][j] = ' ';
             }
         }
+
+        this.state[pacboyX][pacboyY] = 'C';
     }
 
     public String tela() {
@@ -28,20 +37,36 @@ public class Pacboy implements Jogo {
         return sb.toString();
     }
 
-    public void direita() {
+    private void deletePacboy() {
+        this.state[pacboyY][pacboyX] = ' ';
+    }
 
+    public void direita() {
+        deletePacboy();
+        pacboyX = Math.abs((pacboyX + 1) % this.size);
+
+        this.state[pacboyY][pacboyX] = 'C';
     }
 
     public void esquerda() {
+        deletePacboy();
+        pacboyX = Math.abs((pacboyX - 1) % this.size);
 
+        this.state[pacboyY][pacboyX] = 'C';
     }
 
     public void sobe() {
+        deletePacboy();
+        pacboyY = Math.abs((pacboyY - 1) % this.size);
 
+        this.state[pacboyY][pacboyX] = 'C';
     }
 
     public void desce() {
+        deletePacboy();
+        pacboyY = Math.abs((pacboyY + 1) % this.size);
 
+        this.state[pacboyY][pacboyX] = 'C';
     }
 
     public void tick() {
