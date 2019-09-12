@@ -18,6 +18,7 @@ public class Main {
         movementInitializer();
 
         while (true) {
+            jogo.tick();
             render();
             Thread.sleep(1500);
         }
