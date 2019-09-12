@@ -86,4 +86,31 @@ public class SimpleTest {
                 "*****" + "\n", jogo.tela());
     }
 
+    @Test
+    @Ignore
+    public void testFanasmaAparece() {
+        Jogo jogo = new Pacboy();
+        jogo.tela();
+        jogo.tick();
+        assertEquals("M****" + "\n" +
+                "*****" + "\n" +
+                "**C**" + "\n" +
+                "*****" + "\n" +
+                "*****" + "\n", jogo.tela());
+    }
+
+    @Test
+    @Ignore
+    public void testFanasmaAndaParaBaixo() {
+        Jogo jogo = new Pacboy();
+        jogo.tela();
+        jogo.tick();
+        jogo.tick();
+        assertEquals("*****" + "\n" +
+                "M****" + "\n" +
+                "**C**" + "\n" +
+                "*****" + "\n" +
+                "*****" + "\n", jogo.tela());
+    }
+
 }
