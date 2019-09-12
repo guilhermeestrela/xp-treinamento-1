@@ -69,18 +69,17 @@ public class SimpleTest {
                 "*****" + "\n", jogo.sobe());
     }
 
-
-
     @Test
     @Ignore
-    public void testJogoIniciarComPotuacaoZerada() {
+    public void testPacboyComeBolinha() {
         Jogo jogo = new Pacboy();
+        jogo.tela();
+        jogo.direita();
         assertEquals("*****" + "\n" +
-                        "**C**" + "\n" +
-                        "*****" + "\n" +
-                        "*****" + "\n" +
-                        "*****" + "\n" +
-                        "0" + "\n", jogo.tela());
+                "*****" + "\n" +
+                "** C*" + "\n" +
+                "*****" + "\n" +
+                "*****" + "\n", jogo.tela());
     }
 
 }
