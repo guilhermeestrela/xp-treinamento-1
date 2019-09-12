@@ -12,67 +12,75 @@ public class SimpleTest {
     @Test
     public void telaInicial(){
         Jogo jogo = new Pacboy();
-        assertEquals("     " + "\n" +
-                "     " + "\n" +
-                "     " + "\n" +
-                "     " + "\n" +
-                "     " + "\n" , jogo.tela());
+        assertEquals("*****" + "\n" +
+                "*****" + "\n" +
+                "**C**" + "\n" +
+                "*****" + "\n" +
+                "*****" + "\n", jogo.tela());
 
     }
 
-    @Test
-    @Ignore
-    public void testPacboyNaTela() {
-        Jogo jogo = new Pacboy();
-        assertEquals("     " + "\n" +
-                "     " + "\n" +
-                "  C  " + "\n" +
-                "     " + "\n" +
-                "     " + "\n" , jogo.tela());
-    }
 
     @Test
     @Ignore
     public void testPacboyDireita() {
         Jogo jogo = new Pacboy();
-        assertEquals("     " + "\n" +
-                "     " + "\n" +
-                "   C " + "\n" +
-                "     " + "\n" +
-                "     " + "\n" , jogo.tela());
+        jogo.tela();
+        assertEquals("*****" + "\n" +
+                "*****" + "\n" +
+                "***C*" + "\n" +
+                "*****" + "\n" +
+                "*****" + "\n", jogo.direita());
     }
 
     @Test
     @Ignore
     public void testPacboyEsquerda() {
         Jogo jogo = new Pacboy();
-        assertEquals("     " + "\n" +
-                "     " + "\n" +
-                " C   " + "\n" +
-                "     " + "\n" +
-                "     " + "\n" , jogo.tela());
+        jogo.tela();
+        assertEquals("*****" + "\n" +
+                "*****" + "\n" +
+                "*C***" + "\n" +
+                "*****" + "\n" +
+                "*****" + "\n", jogo.esquerda());
     }
 
     @Test
     @Ignore
     public void testPacboyBaixo() {
         Jogo jogo = new Pacboy();
-        assertEquals("     " + "\n" +
-                "     " + "\n" +
-                "     " + "\n" +
-                "  C  " + "\n" +
-                "     " + "\n" , jogo.tela());
+        jogo.tela();
+        assertEquals("*****" + "\n" +
+                "*****" + "\n" +
+                "*****" + "\n" +
+                "**C**" + "\n" +
+                "*****" + "\n", jogo.desce());
     }
 
     @Test
     @Ignore
     public void testPacboyCima() {
         Jogo jogo = new Pacboy();
-        assertEquals("     " + "\n" +
-                "  C  " + "\n" +
-                "     " + "\n" +
-                "     " + "\n" +
-                "     " + "\n", jogo.tela());
+        jogo.tela();
+        assertEquals("*****" + "\n" +
+                "**C**" + "\n" +
+                "*****" + "\n" +
+                "*****" + "\n" +
+                "*****" + "\n", jogo.sobe());
+    }
+
+
+
+    @Test
+    @Ignore
+    public void testJogoIniciarComPotuacaoZerada() {
+        Jogo jogo = new Pacboy();
+        assertEquals("*****" + "\n" +
+                        "**C**" + "\n" +
+                        "*****" + "\n" +
+                        "*****" + "\n" +
+                        "*****" + "\n" +
+                        "0" + "\n", jogo.tela());
     }
 
 }
