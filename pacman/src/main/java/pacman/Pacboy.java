@@ -11,7 +11,7 @@ public class Pacboy implements Jogo {
         this.state = new char[size][size];
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
-                this.state[i][j] = ' ';
+                this.state[i][j] = '0';
             }
         }
     }

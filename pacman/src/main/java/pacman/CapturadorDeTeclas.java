@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 public class CapturadorDeTeclas {
 
     public static void main(String[] args) {
+        Jogo jogo = new Pacboy();
         JFrame frame = new JFrame();
         JButton button = new JButton();
         frame.add(button);
@@ -17,8 +18,9 @@ public class CapturadorDeTeclas {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println(e.getKeyCode());
+                e.getKeyCode();
             }
         });
+        System.out.println(jogo.tela());
     }
 }
