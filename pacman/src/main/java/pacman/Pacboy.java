@@ -54,7 +54,7 @@ public class Pacboy implements Jogo {
     }
 
     public void direita() {
-        int desiredX = Math.abs((pacboyX + 1) % this.size);
+        int desiredX = (pacboyX + 1) % this.size;
         if (shouldBeABlock(desiredX, pacboyY)) {
             return;
         }
@@ -65,9 +65,11 @@ public class Pacboy implements Jogo {
         this.state[pacboyY][pacboyX] = CHAR_PLAYER;
     }
 
-
     public void esquerda() {
-        int desiredX = Math.abs((pacboyX - 1) % this.size);
+        int desiredX = (pacboyX - 1) % this.size;
+        if (desiredX < 0) {
+            desiredX = 4;
+        }
         if (shouldBeABlock(desiredX, pacboyY)) {
             return;
         }
@@ -79,7 +81,10 @@ public class Pacboy implements Jogo {
     }
 
     public void sobe() {
-        int desiredY = Math.abs((pacboyY - 1) % this.size);
+        int desiredY = (pacboyY - 1) % this.size;
+        if (desiredY < 0) {
+            desiredY = 4;
+        }
         if (shouldBeABlock(pacboyX, desiredY)) {
             return;
         }
@@ -91,7 +96,7 @@ public class Pacboy implements Jogo {
     }
 
     public void desce() {
-        int desiredY = Math.abs((pacboyY + 1) % this.size);
+        int desiredY = (pacboyY + 1) % this.size;
         if (shouldBeABlock(pacboyX, desiredY)) {
             return;
         }
