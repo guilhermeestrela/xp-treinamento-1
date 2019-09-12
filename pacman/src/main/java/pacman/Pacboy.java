@@ -11,11 +11,19 @@ public class Pacboy implements Jogo {
 
     int pacboyX;
     int pacboyY;
+
+    int ghostX;
+    int ghostY;
     char pacboyDirection = 'L'; // L = left; R = right; U = up; D = down
+
+    private boolean ghostInitialized = false;
 
     public Pacboy() {
         this.pacboyX = 2;
         this.pacboyY = 2;
+
+        this.ghostX = 0;
+        this.ghostY = 0;
 
         this.size = 5;
         this.state = new char[size][size];
@@ -106,7 +114,28 @@ public class Pacboy implements Jogo {
         this.state[pacboyY][pacboyX] = CHAR_PLAYER;
     }
 
-    public void tick() {
+    public void desceGhost() {
+        deleteGhost();
+        ghostY = (ghostY + 1) % this.size;
 
+        this.state[ghostY][ghostX] = 'M';
+    }
+
+    private void deleteGhost() {
+        this.state[ghostY][ghostX] = '*';
+    }
+
+    public void tick() {
+        if (!ghostInitialized) {
+            this.inicializarFantasmaSeNecessario();
+            ghostInitialized = true;
+        } else {
+            this.desceGhost();
+        }
+    }
+
+
+    private void inicializarFantasmaSeNecessario() {
+        this.state[ghostY][ghostX] = 'M';
     }
 }

@@ -163,4 +163,22 @@ public class SimpleTest {
 
     }
 
+    @Test
+    @Ignore
+    public void testeFantasmaAtravessaParede(){
+        Jogo jogo = new Pacboy();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        assertEquals("M****" + "\n" +
+                "***|*" + "\n" +
+                "*|C**" + "\n" +
+                "**|**" + "\n" +
+                "*****" + "\n", jogo.tela());
+
+    }
+
 }
