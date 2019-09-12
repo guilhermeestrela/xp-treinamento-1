@@ -32,9 +32,9 @@ public class Pacboy implements Jogo {
     }
 
     private boolean shouldBeABlock(int x, int y) {
-        return (x == 2 && y == 1) ||
-                (x == 3 && y == 2) ||
-                (x == 1 && y == 3);
+        return (x == 3 && y == 1) ||
+                (x == 1 && y == 2) ||
+                (x == 2 && y == 3);
     }
 
     public String tela() {
