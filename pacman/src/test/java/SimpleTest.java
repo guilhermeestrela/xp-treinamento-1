@@ -128,4 +128,39 @@ public class SimpleTest {
 
     }
 
+    @Test
+    @Ignore
+    public void testeGameOver(){
+        Jogo jogo = new Pacboy();
+        jogo.direita();
+        jogo.direita();
+        jogo.sobe();
+        jogo.sobe();
+        jogo.esquerda();
+        jogo.esquerda();
+        jogo.desce();
+        jogo.esquerda();
+        jogo.sobe();
+        jogo.esquerda();
+        jogo.desce();
+        jogo.desce();
+        jogo.desce();
+        jogo.desce();
+        jogo.direita();
+        jogo.sobe();
+        jogo.desce();
+        jogo.direita();
+        jogo.direita();
+        jogo.direita();
+        jogo.sobe();
+        jogo.esquerda();
+        //assertEquals("     " + "\n" +
+        //        "   | " + "\n" +
+        //        " | C " + "\n" +
+        //        "  |  " + "\n" +
+        //        "     " + "\n", jogo.tela());
+        assertEquals("GAME OVER", jogo.tela());
+
+    }
+
 }
