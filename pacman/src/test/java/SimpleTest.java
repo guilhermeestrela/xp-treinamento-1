@@ -126,7 +126,6 @@ public class SimpleTest {
     }
 
     @Test
-    @Ignore
     public void testeGameOver(){
         Jogo jogo = new Pacboy();
         jogo.direita();
@@ -151,11 +150,6 @@ public class SimpleTest {
         jogo.direita();
         jogo.sobe();
         jogo.esquerda();
-        //assertEquals("     " + "\n" +
-        //        "   | " + "\n" +
-        //        " | C " + "\n" +
-        //        "  |  " + "\n" +
-        //        "     " + "\n", jogo.tela());
         assertEquals("GAME OVER", jogo.tela());
 
     }
