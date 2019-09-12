@@ -161,7 +161,6 @@ public class SimpleTest {
     }
 
     @Test
-    @Ignore
     public void testeFantasmaAtravessaParede(){
         Jogo jogo = new Pacboy();
         jogo.tick();
