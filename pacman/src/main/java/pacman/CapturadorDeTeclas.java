@@ -1,4 +1,4 @@
-package spikes;
+package packman;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
