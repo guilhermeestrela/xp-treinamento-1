@@ -178,6 +178,10 @@ public class Pacboy implements Jogo {
     }
 
     private boolean verificarVitoria() {
+        if (posicaoAnteriorFantasma == FRUTA) {
+            return false;
+        }
+
         for (int y = 0; y < this.tamanho; y++)
             for (int x = 0; x < this.tamanho; x++)
                 if (this.mapa[y][x] == FRUTA)
