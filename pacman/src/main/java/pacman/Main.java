@@ -19,13 +19,14 @@ public class Main {
     public static final int CODIGO_CHAVE_ESQUERDA = 37;
     public static final int CODIGO_CHAVE_BAIXO = 40;
     public static final int CODIGO_CHAVE_ACIMA = 38;
+    public static final int CODIGO_CHAVE_REINICIAR = 82;
 
     private static Jogo jogo;
     private static JogoCanvas canvas;
     private static Map<Character, BufferedImage> imagens;
 
     public static void main(String[] args) throws InterruptedException, IOException {
-        jogo = new Pacboy();
+        iniciarJogo();
         carregarImagens();
         iniciarCapturaDeMovimentos();
 
@@ -35,6 +36,10 @@ public class Main {
             exibirTelaGrafica();
             Thread.sleep(403);
         }
+    }
+
+    private static void iniciarJogo() {
+        jogo = new Pacboy();
     }
 
     private static void carregarImagens() throws IOException {
@@ -76,10 +81,11 @@ public class Main {
     }
 
     private static void acionarMovimentos(KeyEvent e) throws InterruptedException {
-        if (e.getKeyCode() == CODIGO_CHAVE_ACIMA)    jogo.sobe();
-        if (e.getKeyCode() == CODIGO_CHAVE_BAIXO)    jogo.desce();
-        if (e.getKeyCode() == CODIGO_CHAVE_ESQUERDA) jogo.esquerda();
-        if (e.getKeyCode() == CODIGO_CHAVE_DIREITA)  jogo.direita();
+        if (e.getKeyCode() == CODIGO_CHAVE_ACIMA)      jogo.sobe();
+        if (e.getKeyCode() == CODIGO_CHAVE_BAIXO)      jogo.desce();
+        if (e.getKeyCode() == CODIGO_CHAVE_ESQUERDA)   jogo.esquerda();
+        if (e.getKeyCode() == CODIGO_CHAVE_DIREITA)    jogo.direita();
+        if (e.getKeyCode() == CODIGO_CHAVE_REINICIAR)  iniciarJogo();
     }
 
     public static void exibirTelaGrafica() {
