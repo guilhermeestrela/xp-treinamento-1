@@ -151,7 +151,7 @@ public class PacBoyTest {
         esquerda();
         esquerda();
         tick(5);
-        tela("PERDEU!");
+        tela("P");
     }
 
     @Ignore

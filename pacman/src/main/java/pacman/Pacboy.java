@@ -12,7 +12,7 @@ public class Pacboy implements Jogo {
     private static final char JOGADOR = 'C';
     private static final char FANTASMA = 'M';
     private static final String SAIDA_VITORIA = "GANHOU!";
-    private static final String SAIDA_PERDEU = "PERDEU!";
+    private static final String SAIDA_PERDEU = "P";
     private char [][] mapa;
     private int tamanho;
 
