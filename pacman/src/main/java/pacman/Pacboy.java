@@ -154,7 +154,7 @@ public class Pacboy implements Jogo {
     }
 
     public void tick() {
-        if (!perdeu) {
+        if (!perdeu || verificarVitoria()) {
             processaFantasma();
         }
 
