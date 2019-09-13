@@ -12,17 +12,20 @@ public class Pacboy implements Jogo {
     private static final char JOGADOR = 'C';
     private static final char FANTASMA = 'M';
     private static final String SAIDA_VITORIA = "GANHOU!";
+    private static final String SAIDA_PERDEU = "PERDEU!";
     private char [][] mapa;
     private int tamanho;
 
     private int pacboyX;
     private int pacboyY;
 
+    private boolean perdeu;
+
     private char posicaoAnteriorFantasma = FRUTA;
     private int fantasmaX;
     private int fantasmaY;
-
     private boolean fantasmaInicializado = false;
+
 
     public Pacboy() {
         this.pacboyX = 2;
@@ -56,8 +59,12 @@ public class Pacboy implements Jogo {
     }
 
     public String tela() {
-        if (verificarVitoria())
+        if (perdeu) {
+            return SAIDA_PERDEU;
+        }
+        if (verificarVitoria()) {
             return SAIDA_VITORIA;
+        }
 
         List<String> linhas = new ArrayList<>();
         for (int y = 0; y < this.tamanho; y++) {
@@ -87,7 +94,7 @@ public class Pacboy implements Jogo {
     }
 
     private void movePacBoy(int desejadoX, int desejadoY) {
-        if (existeBloqueio(desejadoX, desejadoY))
+        if (existeBloqueio(desejadoX, desejadoY) || perdeu)
             return;
 
         removerPacboy();
@@ -110,7 +117,15 @@ public class Pacboy implements Jogo {
     }
 
     public void tick() {
-        processaFantasma();
+        if (!perdeu) {
+            processaFantasma();
+        }
+
+        processaPerda();
+    }
+
+    private void processaPerda() {
+        perdeu = pacboyX == fantasmaX && pacboyY == fantasmaY;
     }
 
     private void processaFantasma() {
