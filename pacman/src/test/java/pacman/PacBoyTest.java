@@ -90,18 +90,6 @@ public class PacBoyTest {
     }
 
     @Test
-    public void testeFantasmaAndaParaBaixo() {
-        jogo.tick();
-        jogo.tick();
-        tela(
-            "*****",
-            "M**|*",
-            "*|C**",
-            "**|**",
-            "*****");
-    }
-
-    @Test
     public void testePacboyNaoAtravessaParede() {
         esquerda();
         tela(
@@ -142,13 +130,8 @@ public class PacBoyTest {
 
     @Test
     public void testeGameOver() {
-        direita();
-        direita();
-        desce();
-        desce();
-        esquerda();
-        esquerda();
-        esquerda();
+        sobe();
+        sobe();
         esquerda();
         tick(5);
         tela("P");
@@ -156,7 +139,39 @@ public class PacBoyTest {
 
     @Test
     public void testeCacaFantasma() {
-        tick(17);
+        tick(1);
+        tela(
+                "M****",
+                "***|*",
+                "*|C**",
+                "**|**",
+                "*****");
+
+        tick(4);
+        tela(
+                "*M***",
+                "***|*",
+                "*|C**",
+                "**|**",
+                "*****");
+
+        tick(4);
+        tela(
+                "*****",
+                "*M*|*",
+                "*|C**",
+                "**|**",
+                "*****");
+
+        tick(4);
+        tela(
+                "*****",
+                "**M|*",
+                "*|C**",
+                "**|**",
+                "*****");
+
+        tick(4);
         tela("P");
     }
 
@@ -164,7 +179,7 @@ public class PacBoyTest {
     public void testeFantasmaAtravessaParede() {
         tick(6);
         tela(
-            "M****",
+            "*M***",
             "***|*",
             "*|C**",
             "**|**",
@@ -180,7 +195,7 @@ public class PacBoyTest {
         direita();
         tick(6);
         tela(
-            "M****",
+            "*M***",
             " C |*",
             "*| **",
             "**|**",
