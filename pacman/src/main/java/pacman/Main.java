@@ -65,7 +65,7 @@ public class Main {
         JButton button = new JButton();
         frame.add(button);
         frame.setVisible(true);
-        frame.setMinimumSize(new Dimension(320, 320));
+        frame.setMinimumSize(new Dimension(340, 340));
 
         canvas = new JogoCanvas(imagens);
         canvas.setFocusable(true);
