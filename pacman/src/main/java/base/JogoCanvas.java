@@ -35,7 +35,9 @@ public class JogoCanvas extends JPanel {
 	private RenderedImage getSprite(int coluna, String conteudoLinha) {
 		char caractere = conteudoLinha.charAt(coluna);
 		RenderedImage bufferedImage = _sprites.get(caractere);
-		if (bufferedImage == null) System.out.println("Sprite nao registrada para caracter: '" + caractere +"'");
+		if (bufferedImage == null) {
+//			System.out.println("Sprite nao registrada para caracter: '" + caractere +"'");
+		}
 		return bufferedImage;
 	}
 
