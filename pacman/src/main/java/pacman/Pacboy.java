@@ -3,60 +3,60 @@ package pacman;
 
 public class Pacboy implements Jogo {
 
-    public static final char CHAR_BLOCK = '|';
-    public static final char CHAR_FRUIT = '*';
-    public static final char CHAR_EMPTY = ' ';
-    public static final char CHAR_PLAYER = 'C';
-    public static final char CHAR_GHOST = 'M';
-    public static final String OUTPUT_WIN = "GANHOU!";
-    private char [][] state;
-    private int size;
+    private static final char CHAR_PAREDE = '|';
+    private static final char CHAR_FRUTA = '*';
+    private static final char CHAR_VAZIO = ' ';
+    private static final char CHAR_JOGADOR = 'C';
+    private static final char CHAR_FANTASMA = 'M';
+    private static final String SAIDA_VITORIA = "GANHOU!";
+    private char [][] mapa;
+    private int tamanho;
 
     private int pacboyX;
     private int pacboyY;
 
-    private char ghostPreviousElement = CHAR_FRUIT;
-    private int ghostX;
-    private int ghostY;
+    private char posicaoAnteriorFantasma = CHAR_FRUTA;
+    private int fantasmaX;
+    private int fantasmaY;
 
-    private boolean ghostInitialized = false;
+    private boolean fantasmaInicializado = false;
 
     public Pacboy() {
         this.pacboyX = 2;
         this.pacboyY = 2;
 
-        this.ghostX = 0;
-        this.ghostY = 0;
+        this.fantasmaX = 0;
+        this.fantasmaY = 0;
 
-        this.size = 5;
-        this.state = new char[size][size];
-        for (int y = 0; y < this.size; y++) {
-            for (int x = 0; x < this.size; x++) {
-                this.state[y][x] = CHAR_FRUIT;
-                if (shouldBeABlock(x, y)) {
-                    this.state[y][x] = CHAR_BLOCK;
+        this.tamanho = 5;
+        this.mapa = new char[tamanho][tamanho];
+        for (int y = 0; y < this.tamanho; y++) {
+            for (int x = 0; x < this.tamanho; x++) {
+                this.mapa[y][x] = CHAR_FRUTA;
+                if (existeBloqueio(x, y)) {
+                    this.mapa[y][x] = CHAR_PAREDE;
                 }
             }
         }
 
-        this.state[pacboyX][pacboyY] = CHAR_PLAYER;
+        this.mapa[pacboyX][pacboyY] = CHAR_JOGADOR;
     }
 
-    private boolean shouldBeABlock(int x, int y) {
+    private boolean existeBloqueio(int x, int y) {
         return (x == 3 && y == 1) ||
                 (x == 1 && y == 2) ||
                 (x == 2 && y == 3);
     }
 
     public String tela() {
-        if (checkWin()) {
-            return OUTPUT_WIN;
+        if (verificarVitoria()) {
+            return SAIDA_VITORIA;
         }
 
         StringBuilder sb = new StringBuilder();
-        for (int y = 0; y < this.size; y++) {
-            for (int x = 0; x < this.size; x++) {
-                sb.append(this.state[y][x]);
+        for (int y = 0; y < this.tamanho; y++) {
+            for (int x = 0; x < this.tamanho; x++) {
+                sb.append(this.mapa[y][x]);
             }
             sb.append("\n");
         }
@@ -64,89 +64,87 @@ public class Pacboy implements Jogo {
         return sb.toString();
     }
 
-    private void deletePacboy() {
-        this.state[pacboyY][pacboyX] = CHAR_EMPTY;
+    private void removerPacboy() {
+        this.mapa[pacboyY][pacboyX] = CHAR_VAZIO;
     }
 
     public void direita() {
-        int desiredX = (pacboyX + 1) % this.size;
-        movePacBoy(desiredX, pacboyY);
+        int desejadoX = (pacboyX + 1) % this.tamanho;
+        movePacBoy(desejadoX, pacboyY);
     }
 
     public void esquerda() {
-        int desiredX = (pacboyX - 1) % this.size;
-        movePacBoy(desiredX, pacboyY);
+        int desejadoX = (pacboyX - 1) % this.tamanho;
+        movePacBoy(desejadoX, pacboyY);
     }
 
     public void sobe() {
-        int desiredY = (pacboyY - 1) % this.size;
-        movePacBoy(pacboyX, desiredY);
+        int desejadoY = (pacboyY - 1) % this.tamanho;
+        movePacBoy(pacboyX, desejadoY);
     }
 
     public void desce() {
-        int desiredY = (pacboyY + 1) % this.size;
-        movePacBoy(pacboyX, desiredY);
+        int desejadoY = (pacboyY + 1) % this.tamanho;
+        movePacBoy(pacboyX, desejadoY);
     }
 
-    private void movePacBoy(int desiredX, int desiredY) {
-        desiredX = normalizeMovement(desiredX);
-        desiredY = normalizeMovement(desiredY);
+    private void movePacBoy(int desejadoX, int desejadoY) {
+        desejadoX = normalizaMovimento(desejadoX);
+        desejadoY = normalizaMovimento(desejadoY);
 
-        if (shouldBeABlock(desiredX, desiredY)) {
+        if (existeBloqueio(desejadoX, desejadoY)) {
             return;
         }
-        deletePacboy();
+        removerPacboy();
 
-        pacboyX = desiredX;
-        pacboyY = desiredY;
-        this.state[pacboyY][pacboyX] = CHAR_PLAYER;
+        pacboyX = desejadoX;
+        pacboyY = desejadoY;
+        this.mapa[pacboyY][pacboyX] = CHAR_JOGADOR;
     }
 
-    private int normalizeMovement(int value) {
-        if (value < 0) {
+    private int normalizaMovimento(int valor) {
+        if (valor < 0) {
             return 4;
         }
 
-        return value;
+        return valor;
     }
-
 
     public void desceGhost() {
-        deleteGhost();
-        ghostY = (ghostY + 1) % this.size;
+        removerFantasma();
+        fantasmaY = (fantasmaY + 1) % this.tamanho;
 
-        ghostPreviousElement = this.state[ghostY][ghostX];
-        this.state[ghostY][ghostX] = CHAR_GHOST;
+        posicaoAnteriorFantasma = this.mapa[fantasmaY][fantasmaX];
+        this.mapa[fantasmaY][fantasmaX] = CHAR_FANTASMA;
     }
 
-    private void deleteGhost() {
-        this.state[ghostY][ghostX] = ghostPreviousElement;
+    private void removerFantasma() {
+        this.mapa[fantasmaY][fantasmaX] = posicaoAnteriorFantasma;
     }
 
     public void tick() {
-        if (!ghostInitialized) {
+        if (!fantasmaInicializado) {
             this.inicializarFantasmaSeNecessario();
-            ghostInitialized = true;
+            fantasmaInicializado = true;
         } else {
             this.desceGhost();
         }
     }
 
-    private boolean checkWin() {
-        boolean win = true;
-        for (int y = 0; y < this.size; y++) {
-            for (int x = 0; x < this.size; x++) {
-                if (this.state[y][x] == CHAR_FRUIT) {
-                    win = false;
+    private boolean verificarVitoria() {
+        boolean venceu = true;
+        for (int y = 0; y < this.tamanho; y++) {
+            for (int x = 0; x < this.tamanho; x++) {
+                if (this.mapa[y][x] == CHAR_FRUTA) {
+                    venceu = false;
                 }
             }
         }
 
-        return win;
+        return venceu;
     }
 
-
     private void inicializarFantasmaSeNecessario() {
-        this.state[ghostY][ghostX] = CHAR_GHOST;
+        this.mapa[fantasmaY][fantasmaX] = CHAR_FANTASMA;
     }
 }
