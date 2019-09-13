@@ -13,6 +13,8 @@ public class Pacboy implements Jogo {
     private static final char FANTASMA = 'M';
     private static final String SAIDA_VITORIA = "G";
     private static final String SAIDA_PERDEU = "P";
+    public static final String SENTIDO_LINHA = "linha";
+    public static final String SENTIDO_COLUNA = "coluna";
     private char [][] mapa;
     private int tamanho;
 
@@ -20,10 +22,12 @@ public class Pacboy implements Jogo {
     private int pacboyY;
 
     private boolean perdeu;
+    private long countTick = 0;
 
     private char posicaoAnteriorFantasma = FRUTA;
     private int fantasmaX;
     private int fantasmaY;
+    private String fantasmaProxMovimento = SENTIDO_LINHA;
     private boolean fantasmaInicializado = false;
 
 
@@ -104,10 +108,43 @@ public class Pacboy implements Jogo {
         this.mapa[pacboyY][pacboyX] = JOGADOR;
     }
 
-    public void desceFantasma() {
+    public void moveFantasma() {
         removerFantasma();
         fantasmaY = (fantasmaY + 1) % this.tamanho;
 
+        posicaoAnteriorFantasma = this.mapa[fantasmaY][fantasmaX];
+        this.mapa[fantasmaY][fantasmaX] = FANTASMA;
+    }
+    public void moveFantasmaSegue() {
+        if (fantasmaProxMovimento.equals(SENTIDO_LINHA)) {
+            fantasmaProxMovimento = SENTIDO_COLUNA;
+            if (pacboyX == fantasmaX) {
+                return;
+            }
+            int desejadoX = -1;
+            if (pacboyX - fantasmaX > 0) {
+                desejadoX = 1;
+            }
+            desejadoX += fantasmaX;
+            removerFantasma();
+            fantasmaX = desejadoX;
+            posicaoAnteriorFantasma = this.mapa[fantasmaY][fantasmaX];
+            this.mapa[fantasmaY][fantasmaX] = FANTASMA;
+
+            return;
+        }
+
+        fantasmaProxMovimento = SENTIDO_LINHA;
+        if (pacboyY == fantasmaY) {
+            return;
+        }
+        int desejadoY = -1;
+        if (pacboyY - fantasmaY > 0) {
+            desejadoY = 1;
+        }
+        desejadoY += fantasmaY;
+        removerFantasma();
+        fantasmaY = desejadoY;
         posicaoAnteriorFantasma = this.mapa[fantasmaY][fantasmaX];
         this.mapa[fantasmaY][fantasmaX] = FANTASMA;
     }
@@ -117,11 +154,12 @@ public class Pacboy implements Jogo {
     }
 
     public void tick() {
-        if (!perdeu) {
+        if (!perdeu || verificarVitoria()) {
             processaFantasma();
         }
 
         processaPerda();
+        countTick++;
     }
 
     private void processaPerda() {
@@ -132,8 +170,10 @@ public class Pacboy implements Jogo {
         if (!fantasmaInicializado) {
             this.inicializarFantasma();
             fantasmaInicializado = true;
-        } else {
-            this.desceFantasma();
+            return;
+        }
+        if (countTick % 4 == 0) {
+            this.moveFantasmaSegue();
         }
     }
 
