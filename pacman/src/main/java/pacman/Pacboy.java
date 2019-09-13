@@ -1,6 +1,9 @@
 package pacman;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pacboy implements Jogo {
 
     private static final char PAREDE = '|';
@@ -56,14 +59,16 @@ public class Pacboy implements Jogo {
         if (verificarVitoria())
             return SAIDA_VITORIA;
 
-        StringBuilder sb = new StringBuilder();
+        List<String> linhas = new ArrayList<>();
         for (int y = 0; y < this.tamanho; y++) {
-            for (int x = 0; x < this.tamanho; x++)
-                sb.append(this.mapa[y][x]);
-            sb.append("\n");
+            StringBuilder linha = new StringBuilder();
+            for (int x = 0; x < this.tamanho; x++) {
+                linha.append(this.mapa[y][x]);
+            }
+            linhas.add(linha.toString());
         }
 
-        return sb.toString();
+        return String.join("\n", linhas);
     }
 
     private void removerPacboy() {
