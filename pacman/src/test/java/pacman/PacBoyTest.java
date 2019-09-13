@@ -1,13 +1,11 @@
-import jdk.nashorn.internal.ir.annotations.Ignore;
+package pacman;
 
 import org.junit.Test;
-import pacman.Jogo;
-import pacman.Pacboy;
 
 import static org.junit.Assert.assertEquals;
 
 
-public class SimpleTest {
+public class PacBoyTest {
 
     @Test
     public void telaInicial(){
@@ -166,6 +164,27 @@ public class SimpleTest {
         assertEquals("M****" + "\n" +
                 "***|*" + "\n" +
                 "*|C**" + "\n" +
+                "**|**" + "\n" +
+                "*****" + "\n", jogo.tela());
+
+    }
+
+    @Test
+    public void testeFantasmaNaoCriaBolinhas(){
+        Jogo jogo = new Pacboy();
+        jogo.sobe();
+        jogo.esquerda();
+        jogo.esquerda();
+        jogo.direita();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        assertEquals("M****" + "\n" +
+                " C |*" + "\n" +
+                "*| **" + "\n" +
                 "**|**" + "\n" +
                 "*****" + "\n", jogo.tela());
 

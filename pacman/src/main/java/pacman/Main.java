@@ -90,8 +90,6 @@ public class Main {
                 jogo.direita();
                 break;
         }
-
-        render();
     }
 
     public static void exibeTelaGrafica() {

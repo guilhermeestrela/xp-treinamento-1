@@ -5,16 +5,18 @@ public class Pacboy implements Jogo {
 
     public static final char CHAR_BLOCK = '|';
     public static final char CHAR_FRUIT = '*';
+    public static final char CHAR_EMPTY = ' ';
     public static final char CHAR_PLAYER = 'C';
+    public static final char CHAR_GHOST = 'M';
     private char [][] state;
     private int size;
 
-    int pacboyX;
-    int pacboyY;
+    private int pacboyX;
+    private int pacboyY;
 
-    int ghostX;
-    int ghostY;
-    char pacboyDirection = 'L'; // L = left; R = right; U = up; D = down
+    private char ghostPreviousElement = CHAR_FRUIT;
+    private int ghostX;
+    private int ghostY;
 
     private boolean ghostInitialized = false;
 
@@ -62,71 +64,62 @@ public class Pacboy implements Jogo {
     }
 
     private void deletePacboy() {
-        this.state[pacboyY][pacboyX] = ' ';
+        this.state[pacboyY][pacboyX] = CHAR_EMPTY;
     }
 
     public void direita() {
         int desiredX = (pacboyX + 1) % this.size;
-        if (shouldBeABlock(desiredX, pacboyY)) {
-            return;
-        }
-
-        deletePacboy();
-        pacboyX = desiredX;
-
-        this.state[pacboyY][pacboyX] = CHAR_PLAYER;
+        movePacBoy(desiredX, pacboyY);
     }
 
     public void esquerda() {
         int desiredX = (pacboyX - 1) % this.size;
-        if (desiredX < 0) {
-            desiredX = 4;
-        }
-        if (shouldBeABlock(desiredX, pacboyY)) {
-            return;
-        }
-
-        deletePacboy();
-        pacboyX = desiredX;
-
-        this.state[pacboyY][pacboyX] = CHAR_PLAYER;
+        movePacBoy(desiredX, pacboyY);
     }
 
     public void sobe() {
         int desiredY = (pacboyY - 1) % this.size;
-        if (desiredY < 0) {
-            desiredY = 4;
-        }
-        if (shouldBeABlock(pacboyX, desiredY)) {
-            return;
-        }
-
-        deletePacboy();
-        pacboyY = desiredY;
-
-        this.state[pacboyY][pacboyX] = CHAR_PLAYER;
+        movePacBoy(pacboyX, desiredY);
     }
 
     public void desce() {
         int desiredY = (pacboyY + 1) % this.size;
-        if (shouldBeABlock(pacboyX, desiredY)) {
+        movePacBoy(pacboyX, desiredY);
+    }
+
+    private void movePacBoy(int desiredX, int desiredY) {
+        desiredX = normalizeMovement(desiredX);
+        desiredY = normalizeMovement(desiredY);
+
+        if (shouldBeABlock(desiredX, desiredY)) {
             return;
         }
         deletePacboy();
-        pacboyY = desiredY;
 
+        pacboyX = desiredX;
+        pacboyY = desiredY;
         this.state[pacboyY][pacboyX] = CHAR_PLAYER;
     }
+
+    private int normalizeMovement(int value) {
+        if (value < 0) {
+            return 4;
+        }
+
+        return value;
+    }
+
 
     public void desceGhost() {
         deleteGhost();
         ghostY = (ghostY + 1) % this.size;
 
-        this.state[ghostY][ghostX] = 'M';
+        ghostPreviousElement = this.state[ghostY][ghostX];
+        this.state[ghostY][ghostX] = CHAR_GHOST;
     }
 
     private void deleteGhost() {
-        this.state[ghostY][ghostX] = '*';
+        this.state[ghostY][ghostX] = ghostPreviousElement;
     }
 
     public void tick() {
