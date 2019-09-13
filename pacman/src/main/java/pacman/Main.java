@@ -33,7 +33,7 @@ public class Main {
             jogo.tick();
             renderizar();
             exibirTelaGrafica();
-            Thread.sleep(1500);
+            Thread.sleep(403);
         }
     }
 
