@@ -123,8 +123,7 @@ public class PacBoyTest {
                 "*****" + "\n", jogo.tela());
 
     }
-
-    @Ignore
+    
     @Test
     public void testeGanhou(){
         Jogo jogo = new Pacboy();
