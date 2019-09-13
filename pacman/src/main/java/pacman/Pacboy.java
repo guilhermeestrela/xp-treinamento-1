@@ -108,13 +108,6 @@ public class Pacboy implements Jogo {
         this.mapa[pacboyY][pacboyX] = JOGADOR;
     }
 
-    public void moveFantasma() {
-        removerFantasma();
-        fantasmaY = (fantasmaY + 1) % this.tamanho;
-
-        posicaoAnteriorFantasma = this.mapa[fantasmaY][fantasmaX];
-        this.mapa[fantasmaY][fantasmaX] = FANTASMA;
-    }
     public void moveFantasmaSegue() {
         if (fantasmaProxMovimento.equals(SENTIDO_LINHA)) {
             fantasmaProxMovimento = SENTIDO_COLUNA;
@@ -126,6 +119,9 @@ public class Pacboy implements Jogo {
                 desejadoX = 1;
             }
             desejadoX += fantasmaX;
+            if (existeBloqueio(desejadoX, fantasmaY)) {
+                return;
+            }
             removerFantasma();
             fantasmaX = desejadoX;
             posicaoAnteriorFantasma = this.mapa[fantasmaY][fantasmaX];
@@ -143,6 +139,10 @@ public class Pacboy implements Jogo {
             desejadoY = 1;
         }
         desejadoY += fantasmaY;
+        if (existeBloqueio(fantasmaX, desejadoY)) {
+            return;
+        }
+
         removerFantasma();
         fantasmaY = desejadoY;
         posicaoAnteriorFantasma = this.mapa[fantasmaY][fantasmaX];
