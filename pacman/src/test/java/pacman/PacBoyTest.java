@@ -22,7 +22,7 @@ public class PacBoyTest {
 
     @Test
 
-    public void testPacboyDireita() {
+    public void testePacboyDireita() {
         Jogo jogo = new Pacboy();
         jogo.tela();
         jogo.direita();
@@ -35,7 +35,7 @@ public class PacBoyTest {
 
     @Test
 
-    public void testPacboyEsquerda() {
+    public void testePacboyEsquerda() {
         Jogo jogo = new Pacboy();
         jogo.tela();
         jogo.sobe();
@@ -49,7 +49,7 @@ public class PacBoyTest {
 
     @Test
 
-    public void testPacboyBaixo() {
+    public void testePacboyBaixo() {
         Jogo jogo = new Pacboy();
         jogo.tela();
         jogo.direita();
@@ -63,7 +63,7 @@ public class PacBoyTest {
 
     @Test
 
-    public void testPacboyCima() {
+    public void testePacboyCima() {
         Jogo jogo = new Pacboy();
         jogo.tela();
         jogo.sobe();
@@ -76,7 +76,7 @@ public class PacBoyTest {
 
     @Test
 
-    public void testPacboyComeBolinha() {
+    public void testePacboyComeBolinha() {
         Jogo jogo = new Pacboy();
         jogo.tela();
         jogo.direita();
@@ -88,7 +88,7 @@ public class PacBoyTest {
     }
 
     @Test
-    public void testFanasmaAparece() {
+    public void testeFantasmaAparece() {
         Jogo jogo = new Pacboy();
         jogo.tela();
         jogo.tick();
@@ -100,7 +100,7 @@ public class PacBoyTest {
     }
 
     @Test
-    public void testFanasmaAndaParaBaixo() {
+    public void testeFantasmaAndaParaBaixo() {
         Jogo jogo = new Pacboy();
         jogo.tela();
         jogo.tick();
