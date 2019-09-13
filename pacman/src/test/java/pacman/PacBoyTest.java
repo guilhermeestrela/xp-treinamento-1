@@ -1,5 +1,6 @@
 package pacman;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -137,6 +138,21 @@ public class PacBoyTest {
         sobe();
         esquerda();
         tela("GANHOU!");
+    }
+
+    @Ignore
+    @Test
+    public void testeGameOver() {
+        direita();
+        direita();
+        desce();
+        desce();
+        esquerda();
+        esquerda();
+        esquerda();
+        esquerda();
+        tick(5);
+        tela("PERDEU!");
     }
 
     @Test
