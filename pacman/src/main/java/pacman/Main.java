@@ -20,7 +20,7 @@ public class Main {
         while (true) {
             jogo.tick();
             render();
-            Thread.sleep(1500);
+            Thread.sleep(700);
         }
     }
 
@@ -70,7 +70,5 @@ public class Main {
                 jogo.direita();
                 break;
         }
-
-        render();
     }
 }

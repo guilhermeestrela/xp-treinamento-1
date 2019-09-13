@@ -14,7 +14,6 @@ public class Pacboy implements Jogo {
 
     int ghostX;
     int ghostY;
-    char pacboyDirection = 'L'; // L = left; R = right; U = up; D = down
 
     private boolean ghostInitialized = false;
 
@@ -67,56 +66,46 @@ public class Pacboy implements Jogo {
 
     public void direita() {
         int desiredX = (pacboyX + 1) % this.size;
-        if (shouldBeABlock(desiredX, pacboyY)) {
-            return;
-        }
-
-        deletePacboy();
-        pacboyX = desiredX;
-
-        this.state[pacboyY][pacboyX] = CHAR_PLAYER;
+        movePacBoy(desiredX, pacboyY);
     }
 
     public void esquerda() {
         int desiredX = (pacboyX - 1) % this.size;
-        if (desiredX < 0) {
-            desiredX = 4;
-        }
-        if (shouldBeABlock(desiredX, pacboyY)) {
-            return;
-        }
-
-        deletePacboy();
-        pacboyX = desiredX;
-
-        this.state[pacboyY][pacboyX] = CHAR_PLAYER;
+        movePacBoy(desiredX, pacboyY);
     }
 
     public void sobe() {
         int desiredY = (pacboyY - 1) % this.size;
-        if (desiredY < 0) {
-            desiredY = 4;
-        }
-        if (shouldBeABlock(pacboyX, desiredY)) {
-            return;
-        }
-
-        deletePacboy();
-        pacboyY = desiredY;
-
-        this.state[pacboyY][pacboyX] = CHAR_PLAYER;
+        movePacBoy(pacboyX, desiredY);
     }
 
     public void desce() {
         int desiredY = (pacboyY + 1) % this.size;
-        if (shouldBeABlock(pacboyX, desiredY)) {
+        movePacBoy(pacboyX, desiredY);
+    }
+
+    private void movePacBoy(int desiredX, int desiredY) {
+        desiredX = normalizeMovement(desiredX);
+        desiredY = normalizeMovement(desiredY);
+
+        if (shouldBeABlock(desiredX, desiredY)) {
             return;
         }
         deletePacboy();
-        pacboyY = desiredY;
 
+        pacboyX = desiredX;
+        pacboyY = desiredY;
         this.state[pacboyY][pacboyX] = CHAR_PLAYER;
     }
+
+    private int normalizeMovement(int value) {
+        if (value < 0) {
+            return 4;
+        }
+
+        return value;
+    }
+
 
     public void desceGhost() {
         deleteGhost();
