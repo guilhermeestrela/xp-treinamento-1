@@ -110,7 +110,7 @@ public class Pacboy implements Jogo {
         return valor;
     }
 
-    public void desceGhost() {
+    public void desceFantasma() {
         removerFantasma();
         fantasmaY = (fantasmaY + 1) % this.tamanho;
 
@@ -127,7 +127,7 @@ public class Pacboy implements Jogo {
             this.inicializarFantasmaSeNecessario();
             fantasmaInicializado = true;
         } else {
-            this.desceGhost();
+            this.desceFantasma();
         }
     }
 
