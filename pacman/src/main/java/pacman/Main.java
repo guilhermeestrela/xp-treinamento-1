@@ -26,7 +26,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException, IOException {
         jogo = new Pacboy();
-        mapa.put('*', ImageIO.read(new FileInputStream("i1.jpg")));
+        mapa.put('C', ImageIO.read(new FileInputStream("pacboy.jpg")));
 
         movementInitializer();
 
