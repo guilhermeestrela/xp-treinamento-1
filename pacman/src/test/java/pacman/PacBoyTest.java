@@ -154,7 +154,6 @@ public class PacBoyTest {
         tela("PERDEU!");
     }
 
-    @Ignore
     @Test
     public void testeCacaFantasma() {
         tick(17);
