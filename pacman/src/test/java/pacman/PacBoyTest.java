@@ -21,7 +21,6 @@ public class PacBoyTest {
 
 
     @Test
-
     public void testePacboyDireita() {
         Jogo jogo = new Pacboy();
         jogo.tela();
@@ -34,7 +33,6 @@ public class PacBoyTest {
     }
 
     @Test
-
     public void testePacboyEsquerda() {
         Jogo jogo = new Pacboy();
         jogo.tela();
@@ -48,7 +46,6 @@ public class PacBoyTest {
     }
 
     @Test
-
     public void testePacboyBaixo() {
         Jogo jogo = new Pacboy();
         jogo.tela();
@@ -62,7 +59,6 @@ public class PacBoyTest {
     }
 
     @Test
-
     public void testePacboyCima() {
         Jogo jogo = new Pacboy();
         jogo.tela();
@@ -75,7 +71,6 @@ public class PacBoyTest {
     }
 
     @Test
-
     public void testePacboyComeBolinha() {
         Jogo jogo = new Pacboy();
         jogo.tela();
