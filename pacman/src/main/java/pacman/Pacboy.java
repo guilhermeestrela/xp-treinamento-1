@@ -8,6 +8,7 @@ public class Pacboy implements Jogo {
     public static final char CHAR_EMPTY = ' ';
     public static final char CHAR_PLAYER = 'C';
     public static final char CHAR_GHOST = 'M';
+    public static final String OUTPUT_WIN = "GANHOU!";
     private char [][] state;
     private int size;
 
@@ -48,8 +49,8 @@ public class Pacboy implements Jogo {
     }
 
     public String tela() {
-        if (checkGameOver()) {
-            return "GAME OVER";
+        if (checkWin()) {
+            return OUTPUT_WIN;
         }
 
         StringBuilder sb = new StringBuilder();
@@ -131,21 +132,21 @@ public class Pacboy implements Jogo {
         }
     }
 
-    private boolean checkGameOver() {
-        boolean gameOver = true;
+    private boolean checkWin() {
+        boolean win = true;
         for (int y = 0; y < this.size; y++) {
             for (int x = 0; x < this.size; x++) {
                 if (this.state[y][x] == CHAR_FRUIT) {
-                    gameOver = false;
+                    win = false;
                 }
             }
         }
 
-        return gameOver;
+        return win;
     }
 
 
     private void inicializarFantasmaSeNecessario() {
-        this.state[ghostY][ghostX] = 'M';
+        this.state[ghostY][ghostX] = CHAR_GHOST;
     }
 }
