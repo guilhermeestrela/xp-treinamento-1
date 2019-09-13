@@ -151,13 +151,13 @@ public class PacBoyTest {
         esquerda();
         esquerda();
         tick(5);
-        tela("PERDEU!");
+        tela("P");
     }
 
     @Test
     public void testeCacaFantasma() {
         tick(17);
-        tela("PERDEU!");
+        tela("P");
     }
 
     @Test

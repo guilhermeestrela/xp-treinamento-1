@@ -48,6 +48,7 @@ public class Main {
         imagens.put('M', ImageIO.read(new FileInputStream("fantasma.png")));
         imagens.put('*', ImageIO.read(new FileInputStream("food.png")));
         imagens.put('|', ImageIO.read(new FileInputStream("neon.png")));
+        imagens.put('P', ImageIO.read(new FileInputStream("game_over.jpg")));
     }
 
     private static void renderizar() throws InterruptedException {
