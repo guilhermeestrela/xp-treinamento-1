@@ -11,7 +11,7 @@ public class Pacboy implements Jogo {
     private static final char VAZIO = ' ';
     private static final char JOGADOR = 'C';
     private static final char FANTASMA = 'M';
-    private static final String SAIDA_VITORIA = "GANHOU!";
+    private static final String SAIDA_VITORIA = "G";
     private static final String SAIDA_PERDEU = "P";
     public static final String SENTIDO_LINHA = "linha";
     public static final String SENTIDO_COLUNA = "coluna";

@@ -137,7 +137,7 @@ public class PacBoyTest {
         direita();
         sobe();
         esquerda();
-        tela("GANHOU!");
+        tela("G");
     }
 
     @Test
