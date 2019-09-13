@@ -39,8 +39,10 @@ public class Main {
 
     private static void carregarImagens() throws IOException {
         imagens = new HashMap<Character, BufferedImage>();
-        imagens.put('C', ImageIO.read(new FileInputStream("pacboy.jpg")));
-        imagens.put('M', ImageIO.read(new FileInputStream("fantasma.jpg")));
+        imagens.put('C', ImageIO.read(new FileInputStream("pacboy.png")));
+        imagens.put('M', ImageIO.read(new FileInputStream("fantasma.png")));
+        imagens.put('*', ImageIO.read(new FileInputStream("food.png")));
+        imagens.put('|', ImageIO.read(new FileInputStream("neon.png")));
     }
 
     private static void renderizar() throws InterruptedException {
@@ -58,7 +60,7 @@ public class Main {
         JButton button = new JButton();
         frame.add(button);
         frame.setVisible(true);
-        frame.setMinimumSize(new Dimension(500, 500));
+        frame.setMinimumSize(new Dimension(320, 320));
 
         canvas = new JogoCanvas(imagens);
         canvas.setFocusable(true);
