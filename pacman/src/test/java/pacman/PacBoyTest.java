@@ -8,34 +8,45 @@ import static org.junit.Assert.assertEquals;
 
 public class PacBoyTest {
 
+    Jogo jogo = new Pacboy();
+
     @Test
     public void telaInicial(){
-        Jogo jogo = new Pacboy();
-        assertEquals("*****" + "\n" +
-                "***|*" + "\n" +
-                "*|C**" + "\n" +
-                "**|**" + "\n" +
-                "*****" + "\n", jogo.tela());
-
+        tela(
+            "*****",
+            "***|*",
+            "*|C**",
+            "**|**",
+            "*****");
     }
 
+    private void tela(String... linhasEsperadas) {
+        String esperada =
+                linhasEsperadas[0] + "\n" +
+                linhasEsperadas[1] + "\n" +
+                linhasEsperadas[2] + "\n" +
+                linhasEsperadas[3] + "\n" +
+                linhasEsperadas[4] + "\n";
+        assertEquals(esperada, jogo.tela());
+    }
 
     @Test
     public void testePacboyDireita() {
-        Jogo jogo = new Pacboy();
-        jogo.tela();
-        jogo.direita();
-        assertEquals("*****" + "\n" +
+        direita();
+        assertEquals(
+                "*****" + "\n" +
                 "***|*" + "\n" +
                 "*| C*" + "\n" +
                 "**|**" + "\n" +
                 "*****" + "\n", jogo.tela());
     }
 
+    private void direita() {
+        jogo.direita();
+    }
+
     @Test
     public void testePacboyEsquerda() {
-        Jogo jogo = new Pacboy();
-        jogo.tela();
         jogo.sobe();
         jogo.esquerda();
         assertEquals("*****" + "\n" +
@@ -47,23 +58,24 @@ public class PacBoyTest {
 
     @Test
     public void testePacboyBaixo() {
-        Jogo jogo = new Pacboy();
-        jogo.tela();
-        jogo.direita();
+        direita();
+        desce();
+        tela("*****",
+             "***|*",
+             "*|  *",
+             "**|C*",
+             "*****");
+    }
+
+    private void desce() {
         jogo.desce();
-        assertEquals("*****" + "\n" +
-                "***|*" + "\n" +
-                "*|  *" + "\n" +
-                "**|C*" + "\n" +
-                "*****" + "\n", jogo.tela());
     }
 
     @Test
     public void testePacboyCima() {
-        Jogo jogo = new Pacboy();
-        jogo.tela();
         jogo.sobe();
-        assertEquals("*****" + "\n" +
+        assertEquals(
+                "*****" + "\n" +
                 "**C|*" + "\n" +
                 "*| **" + "\n" +
                 "**|**" + "\n" +
@@ -72,8 +84,6 @@ public class PacBoyTest {
 
     @Test
     public void testePacboyComeBolinha() {
-        Jogo jogo = new Pacboy();
-        jogo.tela();
         jogo.direita();
         assertEquals("*****" + "\n" +
                 "***|*" + "\n" +
@@ -84,8 +94,6 @@ public class PacBoyTest {
 
     @Test
     public void testeFantasmaAparece() {
-        Jogo jogo = new Pacboy();
-        jogo.tela();
         jogo.tick();
         assertEquals("M****" + "\n" +
                 "***|*" + "\n" +
@@ -96,8 +104,6 @@ public class PacBoyTest {
 
     @Test
     public void testeFantasmaAndaParaBaixo() {
-        Jogo jogo = new Pacboy();
-        jogo.tela();
         jogo.tick();
         jogo.tick();
         assertEquals("*****" + "\n" +
@@ -109,7 +115,6 @@ public class PacBoyTest {
 
     @Test
     public void testePacboyNaoAtravessaParede(){
-        Jogo jogo = new Pacboy();
         jogo.esquerda();
         assertEquals("*****" + "\n" +
                 "***|*" + "\n" +
@@ -121,24 +126,23 @@ public class PacBoyTest {
 
     @Test
     public void testeGanhou(){
-        Jogo jogo = new Pacboy();
         jogo.direita();
         jogo.direita();
         jogo.sobe();
         jogo.sobe();
         jogo.esquerda();
         jogo.esquerda();
-        jogo.desce();
+        desce();
         jogo.esquerda();
         jogo.sobe();
         jogo.esquerda();
-        jogo.desce();
-        jogo.desce();
-        jogo.desce();
-        jogo.desce();
+        desce();
+        desce();
+        desce();
+        desce();
         jogo.direita();
         jogo.sobe();
-        jogo.desce();
+        desce();
         jogo.direita();
         jogo.direita();
         jogo.direita();
@@ -150,14 +154,9 @@ public class PacBoyTest {
 
     @Test
     public void testeFantasmaAtravessaParede(){
-        Jogo jogo = new Pacboy();
-        jogo.tick();
-        jogo.tick();
-        jogo.tick();
-        jogo.tick();
-        jogo.tick();
-        jogo.tick();
-        assertEquals("M****" + "\n" +
+        tick(6);
+        assertEquals(
+                "M****" + "\n" +
                 "***|*" + "\n" +
                 "*|C**" + "\n" +
                 "**|**" + "\n" +
@@ -165,20 +164,20 @@ public class PacBoyTest {
 
     }
 
+    private void tick(int quantos) {
+        for (int i = 0; i < quantos; i++)
+            jogo.tick();
+    }
+
     @Test
     public void testeFantasmaNaoCriaBolinhas(){
-        Jogo jogo = new Pacboy();
         jogo.sobe();
         jogo.esquerda();
         jogo.esquerda();
         jogo.direita();
-        jogo.tick();
-        jogo.tick();
-        jogo.tick();
-        jogo.tick();
-        jogo.tick();
-        jogo.tick();
-        assertEquals("M****" + "\n" +
+        tick(6);
+        assertEquals(
+                "M****" + "\n" +
                 " C |*" + "\n" +
                 "*| **" + "\n" +
                 "**|**" + "\n" +

@@ -61,36 +61,20 @@ public class Main {
         canvas.setFocusable(true);
         frame.add(canvas);
 
-        button.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                try {
-                    acionarMovimentos(e);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+        button.addKeyListener(new KeyAdapter() { @Override public void keyPressed(KeyEvent e) {
+            try {
+                acionarMovimentos(e);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
-        });
+        }});
     }
 
     private static void acionarMovimentos(KeyEvent e) throws InterruptedException {
-        switch (e.getKeyCode()) {
-            case CODIGO_CHAVE_ACIMA:
-                jogo.sobe();
-                break;
-
-            case CODIGO_CHAVE_BAIXO:
-                jogo.desce();
-                break;
-
-            case CODIGO_CHAVE_ESQUERDA:
-                jogo.esquerda();
-                break;
-
-            case CODIGO_CHAVE_DIREITA:
-                jogo.direita();
-                break;
-        }
+        if (e.getKeyCode() == CODIGO_CHAVE_ACIMA)    jogo.sobe();
+        if (e.getKeyCode() == CODIGO_CHAVE_BAIXO)    jogo.desce();
+        if (e.getKeyCode() == CODIGO_CHAVE_ESQUERDA) jogo.esquerda();
+        if (e.getKeyCode() == CODIGO_CHAVE_DIREITA)  jogo.direita();
     }
 
     public static void exibirTelaGrafica() {

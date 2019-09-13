@@ -3,11 +3,11 @@ package pacman;
 
 public class Pacboy implements Jogo {
 
-    private static final char CHAR_PAREDE = '|';
-    private static final char CHAR_FRUTA = '*';
-    private static final char CHAR_VAZIO = ' ';
-    private static final char CHAR_JOGADOR = 'C';
-    private static final char CHAR_FANTASMA = 'M';
+    private static final char PAREDE = '|';
+    private static final char FRUTA = '*';
+    private static final char VAZIO = ' ';
+    private static final char JOGADOR = 'C';
+    private static final char FANTASMA = 'M';
     private static final String SAIDA_VITORIA = "GANHOU!";
     private char [][] mapa;
     private int tamanho;
@@ -15,7 +15,7 @@ public class Pacboy implements Jogo {
     private int pacboyX;
     private int pacboyY;
 
-    private char posicaoAnteriorFantasma = CHAR_FRUTA;
+    private char posicaoAnteriorFantasma = FRUTA;
     private int fantasmaX;
     private int fantasmaY;
 
@@ -29,35 +29,37 @@ public class Pacboy implements Jogo {
         this.fantasmaY = 0;
 
         this.tamanho = 5;
-        this.mapa = new char[tamanho][tamanho];
+        initMapa();
+
+        this.mapa[pacboyX][pacboyY] = JOGADOR;
+    }
+
+    private void initMapa() {
+        mapa = new char[tamanho][tamanho];
         for (int y = 0; y < this.tamanho; y++) {
             for (int x = 0; x < this.tamanho; x++) {
-                this.mapa[y][x] = CHAR_FRUTA;
-                if (existeBloqueio(x, y)) {
-                    this.mapa[y][x] = CHAR_PAREDE;
-                }
+                mapa[y][x] = FRUTA;
+                if (existeBloqueio(x, y))
+                    mapa[y][x] = PAREDE;
             }
         }
-
-        this.mapa[pacboyX][pacboyY] = CHAR_JOGADOR;
     }
 
     private boolean existeBloqueio(int x, int y) {
-        return (x == 3 && y == 1) ||
+        return
+                (x == 3 && y == 1) ||
                 (x == 1 && y == 2) ||
                 (x == 2 && y == 3);
     }
 
     public String tela() {
-        if (verificarVitoria()) {
+        if (verificarVitoria())
             return SAIDA_VITORIA;
-        }
 
         StringBuilder sb = new StringBuilder();
         for (int y = 0; y < this.tamanho; y++) {
-            for (int x = 0; x < this.tamanho; x++) {
+            for (int x = 0; x < this.tamanho; x++)
                 sb.append(this.mapa[y][x]);
-            }
             sb.append("\n");
         }
 
@@ -65,49 +67,29 @@ public class Pacboy implements Jogo {
     }
 
     private void removerPacboy() {
-        this.mapa[pacboyY][pacboyX] = CHAR_VAZIO;
+        this.mapa[pacboyY][pacboyX] = VAZIO;
     }
 
-    public void direita() {
-        int desejadoX = (pacboyX + 1) % this.tamanho;
-        movePacBoy(desejadoX, pacboyY);
-    }
+    public void direita()  { movePacboyDelta( 1,  0); }
+    public void esquerda() { movePacboyDelta(-1,  0); }
+    public void sobe()     { movePacboyDelta( 0, -1); }
+    public void desce()    { movePacboyDelta( 0,  1); }
 
-    public void esquerda() {
-        int desejadoX = (pacboyX - 1) % this.tamanho;
-        movePacBoy(desejadoX, pacboyY);
-    }
-
-    public void sobe() {
-        int desejadoY = (pacboyY - 1) % this.tamanho;
-        movePacBoy(pacboyX, desejadoY);
-    }
-
-    public void desce() {
-        int desejadoY = (pacboyY + 1) % this.tamanho;
-        movePacBoy(pacboyX, desejadoY);
+    private void movePacboyDelta(int dx, int dy) {
+        int desejadoX = (pacboyX + dx + tamanho) % tamanho;
+        int desejadoY = (pacboyY + dy + tamanho) % tamanho;
+        movePacBoy(desejadoX, desejadoY);
     }
 
     private void movePacBoy(int desejadoX, int desejadoY) {
-        desejadoX = normalizaMovimento(desejadoX);
-        desejadoY = normalizaMovimento(desejadoY);
-
-        if (existeBloqueio(desejadoX, desejadoY)) {
+        if (existeBloqueio(desejadoX, desejadoY))
             return;
-        }
+
         removerPacboy();
 
         pacboyX = desejadoX;
         pacboyY = desejadoY;
-        this.mapa[pacboyY][pacboyX] = CHAR_JOGADOR;
-    }
-
-    private int normalizaMovimento(int valor) {
-        if (valor < 0) {
-            return 4;
-        }
-
-        return valor;
+        this.mapa[pacboyY][pacboyX] = JOGADOR;
     }
 
     public void desceFantasma() {
@@ -115,7 +97,7 @@ public class Pacboy implements Jogo {
         fantasmaY = (fantasmaY + 1) % this.tamanho;
 
         posicaoAnteriorFantasma = this.mapa[fantasmaY][fantasmaX];
-        this.mapa[fantasmaY][fantasmaX] = CHAR_FANTASMA;
+        this.mapa[fantasmaY][fantasmaX] = FANTASMA;
     }
 
     private void removerFantasma() {
@@ -123,8 +105,12 @@ public class Pacboy implements Jogo {
     }
 
     public void tick() {
+        processaFantasma();
+    }
+
+    private void processaFantasma() {
         if (!fantasmaInicializado) {
-            this.inicializarFantasmaSeNecessario();
+            this.inicializarFantasma();
             fantasmaInicializado = true;
         } else {
             this.desceFantasma();
@@ -132,19 +118,15 @@ public class Pacboy implements Jogo {
     }
 
     private boolean verificarVitoria() {
-        boolean venceu = true;
-        for (int y = 0; y < this.tamanho; y++) {
-            for (int x = 0; x < this.tamanho; x++) {
-                if (this.mapa[y][x] == CHAR_FRUTA) {
-                    venceu = false;
-                }
-            }
-        }
+        for (int y = 0; y < this.tamanho; y++)
+            for (int x = 0; x < this.tamanho; x++)
+                if (this.mapa[y][x] == FRUTA)
+                    return false;
 
-        return venceu;
+        return true;
     }
 
-    private void inicializarFantasmaSeNecessario() {
-        this.mapa[fantasmaY][fantasmaX] = CHAR_FANTASMA;
+    private void inicializarFantasma() {
+        this.mapa[fantasmaY][fantasmaX] = FANTASMA;
     }
 }
