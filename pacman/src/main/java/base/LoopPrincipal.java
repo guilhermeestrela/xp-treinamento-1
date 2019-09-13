@@ -10,7 +10,7 @@ public class LoopPrincipal {
 	
 	private final JogoModoTexto _jogo;
 	private Map<Character, BufferedImage> _mapa;
-	private JogoCanvas _canvas;
+	private JogoCanvas _jogoCanvas;
 
 	public LoopPrincipal(JogoModoTexto jogo, Map<Character, BufferedImage> cacheBitmaps) {
 		_jogo = jogo; 
@@ -29,20 +29,20 @@ public class LoopPrincipal {
 	}
 	
 	private void exibeTelaGrafica() {
-		_canvas.atualizaTela(_jogo.tela());
+		_jogoCanvas.atualizaTela(_jogo.tela());
 	}
 
 	private void iniciaCapturaDeTeclas() {
 		JFrame frame = new JFrame();
 		frame.setSize(448, 478);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		_canvas = new JogoCanvas(_mapa);
-		_canvas.setFocusable(true);
+		_jogoCanvas = new JogoCanvas(_mapa);
+		_jogoCanvas.setFocusable(true);
 		
-		frame.add(_canvas);
+		frame.add(_jogoCanvas);
 		frame.setVisible(true);
 		
-		_canvas.addKeyListener(new KeyAdapter() {
+		_jogoCanvas.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {

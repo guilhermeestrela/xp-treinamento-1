@@ -8,63 +8,64 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
 
-    public static final int KEY_CODE_RIGHT = 39;
-    public static final int KEY_CODE_LEFT = 37;
-    public static final int KEY_CODE_DOWN = 40;
-    public static final int KEY_CODE_UP = 38;
+    public static final int CODIGO_CHAVE_DIREITA = 39;
+    public static final int CODIGO_CHAVE_ESQUERDA = 37;
+    public static final int CODIGO_CHAVE_BAIXO = 40;
+    public static final int CODIGO_CHAVE_ACIMA = 38;
 
     private static Jogo jogo;
-    private static JogoCanvas _canvas;
-    private static Map<Character, BufferedImage> mapa =  new HashMap<Character, BufferedImage>();;
+    private static JogoCanvas canvas;
+    private static Map<Character, BufferedImage> imagens;
 
     public static void main(String[] args) throws InterruptedException, IOException {
         jogo = new Pacboy();
-        mapa.put('C', ImageIO.read(new FileInputStream("pacboy.jpg")));
-
-        movementInitializer();
+        carregarImagens();
+        iniciarCapturaDeMovimentos();
 
         while (true) {
             jogo.tick();
-            render();
-            exibeTelaGrafica();
+            renderizar();
+            exibirTelaGrafica();
             Thread.sleep(1500);
         }
     }
 
-    private static void render() throws InterruptedException {
-        cleanScreen();
+    private static void carregarImagens() throws IOException {
+        imagens = new HashMap<Character, BufferedImage>();
+        imagens.put('C', ImageIO.read(new FileInputStream("pacboy.jpg")));
+    }
+
+    private static void renderizar() throws InterruptedException {
+        limparTela();
         System.out.println("-----");
         System.out.println(jogo.tela());
     }
 
-    public static void cleanScreen() {
+    public static void limparTela() {
         System.out.print("\n\n\n\n\n");
     }
 
-    private static void movementInitializer() {
+    private static void iniciarCapturaDeMovimentos() {
         JFrame frame = new JFrame();
         JButton button = new JButton();
         frame.add(button);
         frame.setVisible(true);
-        _canvas = new JogoCanvas(mapa);
-        _canvas.setFocusable(true);
 
-        frame.add(_canvas);
-        frame.setVisible(true);
+        canvas = new JogoCanvas(imagens);
+        canvas.setFocusable(true);
+        frame.add(canvas);
 
         button.addKeyListener(new KeyAdapter() {
-
             @Override
             public void keyPressed(KeyEvent e) {
                 try {
-                    movementHandler(e);
+                    acionarMovimentos(e);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -72,27 +73,27 @@ public class Main {
         });
     }
 
-    private static void movementHandler(KeyEvent e) throws InterruptedException {
+    private static void acionarMovimentos(KeyEvent e) throws InterruptedException {
         switch (e.getKeyCode()) {
-            case KEY_CODE_UP:
+            case CODIGO_CHAVE_ACIMA:
                 jogo.sobe();
                 break;
 
-            case KEY_CODE_DOWN:
+            case CODIGO_CHAVE_BAIXO:
                 jogo.desce();
                 break;
 
-            case KEY_CODE_LEFT:
+            case CODIGO_CHAVE_ESQUERDA:
                 jogo.esquerda();
                 break;
 
-            case KEY_CODE_RIGHT:
+            case CODIGO_CHAVE_DIREITA:
                 jogo.direita();
                 break;
         }
     }
 
-    public static void exibeTelaGrafica() {
-        _canvas.atualizaTela(jogo.tela().split("\n"));
+    public static void exibirTelaGrafica() {
+        canvas.atualizaTela(jogo.tela().split("\n"));
     }
 }
