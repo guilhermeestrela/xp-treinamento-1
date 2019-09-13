@@ -169,4 +169,25 @@ public class PacBoyTest {
 
     }
 
+    @Test
+    public void testeFantasmaNaoCriaBolinhas(){
+        Jogo jogo = new Pacboy();
+        jogo.sobe();
+        jogo.esquerda();
+        jogo.esquerda();
+        jogo.direita();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        jogo.tick();
+        assertEquals("M****" + "\n" +
+                " C |*" + "\n" +
+                "*| **" + "\n" +
+                "**|**" + "\n" +
+                "*****" + "\n", jogo.tela());
+
+    }
+
 }
