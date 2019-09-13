@@ -140,7 +140,6 @@ public class PacBoyTest {
         tela("GANHOU!");
     }
 
-    @Ignore
     @Test
     public void testeGameOver() {
         direita();
