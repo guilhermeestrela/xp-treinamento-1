@@ -1,4 +1,4 @@
-import jdk.nashorn.internal.ir.annotations.Ignore;
+package pacman;
 
 import org.junit.Test;
 import pacman.Jogo;
@@ -7,7 +7,7 @@ import pacman.Pacboy;
 import static org.junit.Assert.assertEquals;
 
 
-public class SimpleTest {
+public class PacBoyTest {
 
     @Test
     public void telaInicial(){
