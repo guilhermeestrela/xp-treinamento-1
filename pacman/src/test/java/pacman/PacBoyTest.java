@@ -124,7 +124,7 @@ public class PacBoyTest {
     }
 
     @Test
-    public void testeGameOver(){
+    public void testeGanhou(){
         Jogo jogo = new Pacboy();
         jogo.direita();
         jogo.direita();
@@ -148,7 +148,7 @@ public class PacBoyTest {
         jogo.direita();
         jogo.sobe();
         jogo.esquerda();
-        assertEquals("GAME OVER", jogo.tela());
+        assertEquals("GANHOU!", jogo.tela());
 
     }
 
