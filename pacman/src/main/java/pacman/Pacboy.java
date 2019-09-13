@@ -5,15 +5,18 @@ public class Pacboy implements Jogo {
 
     public static final char CHAR_BLOCK = '|';
     public static final char CHAR_FRUIT = '*';
+    public static final char CHAR_EMPTY = ' ';
     public static final char CHAR_PLAYER = 'C';
+    public static final char CHAR_GHOST = 'M';
     private char [][] state;
     private int size;
 
-    int pacboyX;
-    int pacboyY;
+    private int pacboyX;
+    private int pacboyY;
 
-    int ghostX;
-    int ghostY;
+    private char ghostPreviousElement = CHAR_FRUIT;
+    private int ghostX;
+    private int ghostY;
 
     private boolean ghostInitialized = false;
 
@@ -61,7 +64,7 @@ public class Pacboy implements Jogo {
     }
 
     private void deletePacboy() {
-        this.state[pacboyY][pacboyX] = ' ';
+        this.state[pacboyY][pacboyX] = CHAR_EMPTY;
     }
 
     public void direita() {
@@ -111,11 +114,12 @@ public class Pacboy implements Jogo {
         deleteGhost();
         ghostY = (ghostY + 1) % this.size;
 
-        this.state[ghostY][ghostX] = 'M';
+        ghostPreviousElement = this.state[ghostY][ghostX];
+        this.state[ghostY][ghostX] = CHAR_GHOST;
     }
 
     private void deleteGhost() {
-        this.state[ghostY][ghostX] = '*';
+        this.state[ghostY][ghostX] = ghostPreviousElement;
     }
 
     public void tick() {
