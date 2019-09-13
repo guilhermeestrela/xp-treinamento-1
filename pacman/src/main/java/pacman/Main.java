@@ -4,6 +4,7 @@ import base.JogoCanvas;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -39,6 +40,7 @@ public class Main {
     private static void carregarImagens() throws IOException {
         imagens = new HashMap<Character, BufferedImage>();
         imagens.put('C', ImageIO.read(new FileInputStream("pacboy.jpg")));
+        imagens.put('M', ImageIO.read(new FileInputStream("fantasma.jpg")));
     }
 
     private static void renderizar() throws InterruptedException {
@@ -56,6 +58,7 @@ public class Main {
         JButton button = new JButton();
         frame.add(button);
         frame.setVisible(true);
+        frame.setMinimumSize(new Dimension(500, 500));
 
         canvas = new JogoCanvas(imagens);
         canvas.setFocusable(true);
